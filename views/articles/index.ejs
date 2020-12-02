@@ -15,11 +15,16 @@
 <% articles.forEach(article => { %>
   <div class = "card mt-4">
     <div class ="card-body">
-      <h4 class = "card-title"> <%= article.title %> </h4>
+      <h1 class = "card-title"> <%= article.title_kor %> </h1>
+      <h5 class = "card-title"> <%= article.title %> </h5>
+
       <div class = "card-subtitle text-muted mb-2">
-        <%= article.createdAt.toLocaleDateString() %>
+        <%= article.upload_day.toLocaleDateString() %>
       </div>
-      <div class ="card-text mb-2"> <%= article.description%> </div>
+      <div class ="card-text mb-2"> <%= article.href%> </div>
+      <a href="articles/<%= article.id%>" class="btn btn-primary">자세히보기</a>
+      <a href= article.href class="btn btn-success">원문보기</a>
+
     </div>
     </div>
 <% }) %>

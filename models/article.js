@@ -1,5 +1,9 @@
+const { Int32 } = require('mongodb')
 const mongoose = require('mongoose')
 const articleSchema = new mongoose.Schema({
+  index : {
+    type: Number
+  },
   title : {
     type: String
   },
@@ -15,4 +19,4 @@ const articleSchema = new mongoose.Schema({
   }
 })
 
-module.exports = mongoose.model('article',articleSchema)
+module.exports = mongoose.model('article',articleSchema , 'Article')

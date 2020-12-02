@@ -1,18 +1,19 @@
-const express = require('express');
-const app = express();
-const mongoose = require('mongoose')
-const articleRouter = require('./routes/articles')
-app.set('view engine' , 'ejs')
-app.use('/articles',articleRouter)
+const express = require('express')
+  const mongoose = require('mongoose')
+  
+  const articleRouter = require('./routes/articles')
+  const Article = require('./models/article')
+  const app = express()
+  mongoose.connect('mongodb://developer:developer@207.148.99.250:27017/article_service' ,{
+    useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false})
+  app.set('view engine' , 'ejs')
+  //app.use(express.unlencoded({ extended : false }))
+  
+  app.get('/',async (req, res) => {
+    const articles = await Article.find().sort({upload_day : 'desc'})
+    res.render('articles/index' , { articles: articles})
+  })
+  
+  app.use('/articles',articleRouter)
 
-mongoose.connect('mongodb://dong:dong123@07.148.99.250:27017/admin' ,{
-useNewUrlParser : true , useUnifiedTopology : true})
-app.get('/', function (req, res) {
-  const articles = [{
-    title : 'test article',
-    createdAt : new Date() ,
-    description : 'Test description'
-  }]
-  res.render('articles/index' , { articles: articles})
-})
-app.listen(3000)
+  app.listen(3000)
