@@ -1,34 +1,33 @@
 <!DOCTYPE html>
 <html lang ="utf-8">
-<head>
-<meta charset = "utf-8">
-<meta name="viewport" content"width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <head>
+    <meta charset = "utf-8">
+    <meta name="viewport" content"width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Blog</title>
-</head>
-<body>
-<div class = "container">
-<h1 class = "mb-4"> Blog Articles </h1>
-<a href = "/articles/new" class="btn btn-success"> New Article </a>
-<% articles.forEach(article => { %>
-  <div class = "card mt-4">
-    <div class ="card-body">
-      <h1 class = "card-title"> <%= article.title_kor %> </h1>
-      <h5 class = "card-title"> <%= article.title %> </h5>
-
-      <div class = "card-subtitle text-muted mb-2">
-        <%= article.upload_day.toLocaleDateString() %>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Blog</title>
+  </head>
+  <body>
+    <div class = "container">
+      <h1 class = "mb-4"> Blog Articles </h1>
+      <!-- 로그인 버튼 -->
+      <a href = "/member/login" class="btn btn-success"> SIGN IN </a >
+      <% articles.forEach(article => { %>
+      <div class = "card mt-4">
+        <div class ="card-body">
+          <h1 class = "card-title"> <%= article.title_kor %> </h1>
+          <h5 class = "card-title"> <%= article.title %> </h5>
+            <div class = "card-subtitle text-muted mb-2">
+              <%= article.upload_day%>
+            </div>
+            <div class ="card-text mb-2"> <%= article.href%> </div>
+            <a href="articles/<%= article.id%>" class="btn btn-primary">자세히보기</a>
+            <a href= article.href class="btn btn-success">원문보기</a>
+        </div>
       </div>
-      <div class ="card-text mb-2"> <%= article.href%> </div>
-      <a href="articles/<%= article.id%>" class="btn btn-primary">자세히보기</a>
-      <a href= article.href class="btn btn-success">원문보기</a>
-
+      <% }) %>
     </div>
-    </div>
-<% }) %>
-</div>
-</body>
+  </body>
 </html>
 
