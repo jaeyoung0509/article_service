@@ -11,10 +11,10 @@ const Session = require('express-session');
 
 var MongoDBStore = require('connect-mongodb-session')(Session);
 const flash = require('connect-flash');
-// 권순민 추가
+//  추가
 const PORT= process.env.PORT || 3000;
 
-// routes 권순민 추가
+// routes  추가
 const memberRoute = require("./routes/member");
 
 const articleRouter = require('./routes/articles')
@@ -55,9 +55,10 @@ app.use(passport.session());
 //index
 app.get('/', async (req, res) => {
   // await req.session.displayname
+  var sess= req.session
   var searchQuery = createSearchQuery(req.query);
     const articles = await Article.find(searchQuery).sort({ upload_day: 'desc' })  
-    res.render('articles/index', { user : req.user , articles: articles })
+    res.render('articles/index', { email : sess.email , articles: articles })
 })
 
 
@@ -89,14 +90,14 @@ app.use('/articles',util.getPostQueryString, articleRouter)
 
 // app.listen(3000)
 
-// 뷰엔진 설정 권순민 추가
+// 뷰엔진 설정  추가
 app.set('views', __dirname + '/views');
 app.use(express.static(__dirname + "/public"));
 
-// use routes 권순민 추가
+// use routes  추가
 app.use("/member", memberRoute);
 
-// 권순민 추가
+//  추가
 app.listen(PORT, function () {
   console.log('Example app listening on port',PORT);
 });
