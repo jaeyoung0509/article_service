@@ -1,17 +1,15 @@
 const express = require('express')
 const Article = require('./../models/article')
 const router = express.Router()
+//const MemberRouter =  require('member')
 
-router.get('/new' ,(req , res) => {
-    res.send('hiddd')
-  //res.sender('articles/new', {article : new Article()})
-})
+
 
 router.get('/:id', async(req, res) => {
   const article = await Article.findById(req.params.id)
   if(article == null)
    res.redirect('/')
-  res.render('articles/show' , {article : article}) 
+  res.render('articles/show' , {article : article} ) 
 })
 // 검색 눌렀을 때 이걸로 실행되는 듯
 router.get('/', async (req, res) => {
@@ -27,7 +25,10 @@ function createSearchQuery(queries){ // 4
     var postQueries = []; 
     postQueries.push({ summary_kor: { $regex: new RegExp(queries.searchText, 'i') } });
       postQueries.push({ keyword_kor: { $regex: new RegExp(queries.searchText, 'i') } });
-      postQueries.push({ title_kor: { $regex: new RegExp(queries.searchText, 'i') } }); // 검색글자를 title_kor : 검색글자 식으로 저장
+      postQueries.push({ title: { $regex: new RegExp(queries.searchText, 'i') } }); // 검색글자를 title_kor : 검색글자 식으로 저장
+      postQueries.push({ summary: { $regex: new RegExp(queries.searchText, 'i') } }); // 검색글자를 title_kor : 검색글자 식으로 저장
+      postQueries.push({ keyword: { $regex: new RegExp(queries.searchText, 'i') } }); // 검색글자를 title_kor : 검색글자 식으로 저장
+      postQueries.push({ plain_text: { $regex: new RegExp(queries.searchText, 'i') } }); // 검색글자를 title_kor : 검색글자 식으로 저장
     if(postQueries.length > 0) searchQuery = {$or:postQueries};
   }
   return searchQuery;

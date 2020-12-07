@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const fs= require('fs')
 var util = require('./util');
+
 const bodyParser = require("body-parser");  //body-parser를 express에 붙여서 사용하기 위해 코드를 추가
 //인증모듈 require
 const passport = require('passport');
@@ -18,6 +19,7 @@ const memberRoute = require("./routes/member");
 
 const articleRouter = require('./routes/articles')
 const Article = require('./models/article')
+const User  = require('./models/article')
 const app = express()
 
 //body-parser를 express에 붙여서 사용하기 위해 코드를 추가
@@ -52,10 +54,13 @@ app.use(passport.session());
 
 //index
 app.get('/', async (req, res) => {
+  // await req.session.displayname
+
   var searchQuery = createSearchQuery(req.query);
     const articles = await Article.find(searchQuery).sort({ upload_day: 'desc' })  
-    res.render('articles/index', { articles: articles })
+    res.render('articles/index', { session : req.session , articles: articles })
 })
+
 app.get('/imgs', function(req ,res) {
    const readFile = fs.readFile;
     readFile('main2.gif' ,function(error , data){
@@ -64,6 +69,7 @@ app.get('/imgs', function(req ,res) {
 });  
 });
 
+  
 // searchQuery <<<
 function createSearchQuery(queries){ // 4
   var searchQuery = {};

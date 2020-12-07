@@ -80,7 +80,11 @@ function (req, email, password, done)
 ));
 router.post('/login', passport.authenticate('local', {failureRedirect: '/member/login', failureFlash: true}), // 인증 실패 시 '/login'으로 이동
 function (req, res) {
-    res.redirect('/');
+    console.log("qweqweqweqwe");
+    console.log(passport);
+    req.session.save(function () {
+        res.redirect('/');
+    })
     //로그인 성공 시 '/'으로 이동
 });
 
