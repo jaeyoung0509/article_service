@@ -72,15 +72,15 @@ function (req, email, password, done)
         } else if (!user) {
             return done(null, false, req.flash('login_message','이메일 또는 비밀번호를 확인하세요.')); // 로그인 실패
         } else {
+            console.log("로그인성공")
             return done(null, user); // 로그인 성공
         }
     });
 }
 ));
 
-router.post('/login', passport.authenticate('local', {failureRedirect: '/login', failureFlash: true}), // 인증 실패 시 '/login'으로 이동
+router.post('/login', passport.authenticate('local', {failureRedirect: '/member/login', failureFlash: true}), // 인증 실패 시 '/login'으로 이동
 function (req, res) {
-    console.log ('Tlqkf');
     res.redirect('/');
     //로그인 성공 시 '/'으로 이동
 });
