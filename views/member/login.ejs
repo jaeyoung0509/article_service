@@ -6,23 +6,33 @@
         <!-- 부트스트랩 적용 -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>ARTICLES</title>
+        <title>로그인</title>
     </head>
-
     <body>
-        <div class = "container">
-            <!-- 로그인 양식 -->
-            <form action="/member/login" method="POST" class="signupform">
-                <label for="email">E-MAIL</label>
-                <input name="email" type="email" required />
-                <label for="password">PASSWORD</label>
-                <input name="password" type="password" required />
-                <button class="btn btn btn-success">LOGIN!</button>
-            </form>
-        </div>
-        <div class = "container">
-            <!-- 회원가입 버튼 -->
-            <a href = "/member/signup" class="btn"> SIGN UP </a>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+
+                    <div class="login-box well">
+                        <form action="/member/login" method="POST" class="signupform">
+                            <legend>로그인</legend>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                <input type="text" name="email" value='' placeholder="E-mail을 입력하세요" class="form-control" />
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                <input type="password" name="password" value='' placeholder="비밀번호를 입력하세요" class="form-control" />
+                            </div>
+                            <button type="submit" id="login-submit" class="btn btn-default btn-block"/>로그인</button>
+                            <div class="form-group">
+                                <a href="registerForm.php" class="btn btn-default btn-block"> 회원가입</a>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </body>
 </html>
