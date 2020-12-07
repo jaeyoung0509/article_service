@@ -55,11 +55,13 @@ app.use(passport.session());
 //index
 app.get('/', async (req, res) => {
   // await req.session.displayname
-
   var searchQuery = createSearchQuery(req.query);
     const articles = await Article.find(searchQuery).sort({ upload_day: 'desc' })  
-    res.render('articles/index', { session : req.session , articles: articles })
+    res.render('articles/index', { user : req.user , articles: articles })
 })
+
+
+
 
 app.get('/imgs', function(req ,res) {
    const readFile = fs.readFile;
