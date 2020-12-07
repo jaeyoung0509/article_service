@@ -5,20 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Blog</title>
+  <title>Article</title>
 </head>
 <body>
 
   <div class="container">
-    <h1 class="mb-1"> <%= article.title_kor%></h1>
-  </div>
+    <div class="card mt-2" padding : 10 10 10 10>
+    <h1 class="mb-1" style="text-align:center padding 0 0 0 19" >  <%= article.title_kor%></h1>
+    <div style="margin:0 auto" ></div>
+  <span class='text-info'  style="text-align:center"> # <%=article.keyword_kor %></span>
   <div class="text-muted mb-2">
-    <%= article.title %>
+    <%= article.summary_kor %>
   </div>
-  <div class="text-muted mb-2">
+  <div class="text-muted mb-2" style="text-align:center">
     <%= article.upload_day.toLocaleDateString() %>
   </div>
+</div>
+  <div class="text-muted mb-2">
+    <%= article.plain_text %>
+  </div>
+  </div>
+  <div style="margin:0 auto" >
   <a href ="/" class="btn btn-secondary"> All Articles</a>
+  </div>
 
+</div>
 </body>
 </html>

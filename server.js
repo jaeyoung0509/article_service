@@ -1,5 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const fs= require('fs')
+var util = require('./util');
 const bodyParser = require("body-parser");  //body-parser를 express에 붙여서 사용하기 위해 코드를 추가
 //인증모듈 require
 const passport = require('passport');
@@ -49,12 +51,33 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //index
-app.get('/',async (req, res) => {
-  const articles = await Article.find().sort({upload_day : 'desc'})
-  res.render('articles/index' , { articles: articles})
+app.get('/', async (req, res) => {
+  var searchQuery = createSearchQuery(req.query);
+    const articles = await Article.find(searchQuery).sort({ upload_day: 'desc' })  
+    res.render('articles/index', { articles: articles })
 })
+app.get('/imgs', function(req ,res) {
+   const readFile = fs.readFile;
+    readFile('main2.gif' ,function(error , data){
+    res.writeHead(200 , {'Content-Type' : 'text/tml'});
+    res.end(data);
+});  
+});
 
-app.use('/articles',articleRouter)
+// searchQuery <<<
+function createSearchQuery(queries){ // 4
+  var searchQuery = {};
+  if(queries.searchText && queries.searchText.length >= 2){ // 검색 글자 수 몇개 이상인지
+    var postQueries = [];
+      postQueries.push({ body: { $regex: new RegExp(queries.searchText, 'i') } });
+    if(postQueries.length > 0) searchQuery = {$or:postQueries};
+  }
+  return searchQuery;
+}
+
+// Routers
+app.use('/articles',util.getPostQueryString, articleRouter)
+
 
 // app.listen(3000)
 

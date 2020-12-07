@@ -1,34 +1,66 @@
 <!DOCTYPE html>
+<!-- 네비게이션 만들기 -->
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
+  
+  <!-- 리스트 : 부트스트랩은 모바일 우선이라 화면이 작으면 아래로 쌓아서 내려온다 -->
+  <ul class="navbar-nav mr-auto navbar-dark">
+      <li class="nav-item mr-auto active">
+          <a class="nav-link" href="/">NewsTalk</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" href="/member/login">Log in</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link disabled" href="#">button 3</a>
+      </li> 
+  </ul>
+  <!-- Search -->
+  <form class="form-inline" action="/articles" method="get" class="post-index-tool"> 
+       <!-- inline여야 간격이 없이 메뉴처럼 나온다-->
+    <input class="form-control mr-sm-2" type="text" name="searchText" placeholder="Search" >
+      <!-- form-control 입력창 꾸며주는 클래스 -->
+      <button class="btn btn-success"  type="submit">Search</button>
+  </form>
+</nav>
+
+
+<!-- 네비게이션 만들기 -->
+
 <html lang ="utf-8">
-  <head>
-    <meta charset = "utf-8">
-    <meta name="viewport" content"width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<head>
+<title>NewsTalk</title>
+<meta charset = "utf-8">
+<meta name="viewport" content"width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Blog</title>
-  </head>
-  <body>
-    <div class = "container">
-      <h1 class = "mb-4"> Blog Articles </h1>
-      <span class="title">Hello! <%=email%></span>
-      <!-- 로그인 버튼 -->
-      <a href = "/member/login" class="btn btn-success"> SIGN IN </a >
-      <% articles.forEach(article => { %>
-      <div class = "card mt-4">
-        <div class ="card-body">
-          <h1 class = "card-title"> <%= article.title_kor %> </h1>
-          <h5 class = "card-title"> <%= article.title %> </h5>
-            <div class = "card-subtitle text-muted mb-2">
-              <%= article.upload_day%>
-            </div>
-            <div class ="card-text mb-2"> <%= article.href%> </div>
-            <a href="articles/<%= article.id%>" class="btn btn-primary">자세히보기</a>
-            <a href= article.href class="btn btn-success">원문보기</a>
-        </div>
+
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+<div class = "container-fluid" >
+    <a href = "/">
+    <img src="/imgs" class="mx-auto d-block" style="margin-top:20px;border-radius:10px ; width: 5% ;height:5%"/>  
+  </a>
+  <h1 class ="text-center display-4 font-italic"> News   Talk </h1>
+
+<% articles.forEach(article => { %>
+
+  <div class = "card mt-4">
+    <div class ="card-body">
+      <span class='text-primary'> #  <%=article.keyword_kor %></span>
+      <span class='text-info'>  <%=article.keyword%></span>
+      <h1 class = "card-title"> <%= article.title_kor %> </h1>
+      <div class = "card-subtitle text-muted mb-2">
+        <%= article.upload_day.toLocaleDateString() %>
       </div>
-      <% }) %>
-    </div>
-  </body>
-</html>
+      <div class ="card-text mb-2">   <%= article.summary_kor%>   </div>
+      <div class ="card-text mb-2">  <span class= "text-muted"><%= article.summary%>  </span></div>
+      <a href="articles/<%= article.id%>" class="btn btn-primary">자세히보기</a>
+      <a href= article.href class="btn btn-success">원문보기</a>
 
+    </div>
+    </div>
+<% }) %>
+</div>
+</body>
+</html>
