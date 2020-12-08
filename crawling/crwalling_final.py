@@ -64,7 +64,7 @@ def crwallNews():
             plain_title = i.get_text().replace("\t", "").replace("\n", "")
             plain_href = 'https://www.reuters.com/news/world' + str(i.attrs['href'])
             plain_text_temp = crwallbody(plain_href)
-            plain_text = plain_text.append(plain_text_temp)
+            plain_text.append(str(plain_text_temp))
             # summary
             r.extract_keywords_from_text(plain_text_temp)
             summary_temp = ','.join(r.get_ranked_phrases()[:3])
