@@ -11,13 +11,18 @@
 
   <div class="container">
     <div class="card mt-2" padding : 10 10 10 10>
-    <h1 class="mb-1" style="text-align:center padding 0 0 0 19" >  <%= article.title_kor%></h1>
+    <h1 class="mb-1" style="text-align:center" >  <%= article.title_kor%></h1>
+    <h5 class="mb-1" style="text-align:center " >  <%= article.title%></h5>
     <div style="margin:0 auto" ></div>
-  <span class='text-info'  style="text-align:center"> # <%=article.keyword_kor %></span>
+  <span class='text-primary'  style="text-align:center"> # <%=article.keyword_kor %></span>
+  <span class='text-info'  style="text-align:center">  #<%=article.keyword%></span>
   <div class="text-muted mb-2">
     <%= article.summary_kor %>
   </div>
-  <div class="text-muted mb-2" style="text-align:center">
+  <div class="text-muted mb-2">
+    <%= article.summary %>
+  </div>
+  <div class="text-muted mb-2" style="">
     <%= article.upload_day.toLocaleDateString() %>
   </div>
 </div>
