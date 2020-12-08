@@ -4,12 +4,15 @@
   
   <!-- 리스트 : 부트스트랩은 모바일 우선이라 화면이 작으면 아래로 쌓아서 내려온다 -->
   <ul class="navbar-nav mr-auto navbar-dark">
+    <!-- 이메일값 넘어오면 -->
     <% if (email) {%> 
       <li class="nav-item mr-auto active">
-          <a class="nav-link" href="/" name="email"><%=email%></a>
+        <!-- 로그인시에 이메일 출력 -->
+        <a class="nav-link" href="/" name="email"><%=email%></a>
       </li>
       <li class="nav-item">
-          <a class="nav-link" href="/member/login">Log out</a>
+        <!-- 로그아웃버튼 -->
+        <a class="nav-link" href="/member/logout">Log out</a>
       </li>
       <% }else{ %>
         <li class="nav-item mr-auto active">
@@ -50,7 +53,7 @@
     <a href = "/">
     <img src="/imgs" class="mx-auto d-block" style="margin-top:20px;border-radius:10px ; width: 5% ;height:5%"/>  
   </a>
-  <h1 class ="text-center display-4 font-italic"> News   Talk <%=email%></h1>
+  <h1 class ="text-center display-4 font-italic"> News   Talk </h1>
 
 <% articles.forEach(article => { %>
 

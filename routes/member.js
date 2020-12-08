@@ -62,17 +62,22 @@ function (req, email, password, done)
         } else {
             console.log(user.email)
             console.log("로그인성공")
-            return done(null, {'email' : user}); // 로그인 성공
+            return done(null, {'email' : user.name}); // 로그인 성공
         }
     });
 }
 ));
 router.post('/login', passport.authenticate('local', { failureRedirect: '/member/login', failureFlash: true}), // 인증 실패 시 '/login'으로 이동
 async function (req, res) {
-    console.log(req.user)
     console.log("성공했으니 인덱스로 이동");
         res.redirect('/');
     //로그인 성공 시 '/'으로 이동
+});
+
+// 로그아웃기능 (세션삭제)
+router.get('/logout', function (req, res) {
+    req.session.destroy()
+    res.redirect('/'); //로그아웃 후 '/'로 이동
 });
 
 // GET방식으로 /login으로 접속할 때 message를 전달

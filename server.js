@@ -57,17 +57,19 @@ app.get('/', async (req, res) => {
   var searchQuery = createSearchQuery(req.query);
   // await req.session.displayname
   var sess= req.session
-  var email = null
-  console.log(sess)
   if(sess.passport != null){
+    console.log(1)
     email = sess.passport.user.email
     console.log(email)
     const articles = await Article.find(searchQuery).sort({ upload_day: 'desc' })  
     res.render('articles/index', { email :email , articles: articles })
   }
   else {
+    var email = null
+    console.log(email)
+    console.log(2)
     const articles = await Article.find(searchQuery).sort({ upload_day: 'desc' })  
-    res.render('articles/index', { email : sess.email , articles: articles })
+    res.render('articles/index', { email : email , articles: articles })
   }
 })
 
