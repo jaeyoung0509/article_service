@@ -46,18 +46,6 @@ router.post("/signup", (req, res, next) => {
       });
 });
 
-// 로그인에 성공할 시 정보를 세션에 저장하는 코드와 인증 후에 페이지 이동등의 요청이 있을 때마다 호출하는 코드를 추가합니다.
-
-// 로그인에 성공할 시 serializeUser 메서드를 통해서 사용자 정보를 세션에 저장
-passport.serializeUser(function (user, done) {
-    done(null, user);
-});
-
-// 사용자 인증 후 요청이 있을 때마다 호출
-passport.deserializeUser(function (user, done) {
-    done(null, user);
-});
-
 // 로그인 로직 코드입니다. 주의할 점은 password를 암호화하여 저장하였으므로, 로그인 코드를 작성할 때도 사용자가 입력한 패스워드를 암호화한 값과 DB에 저장된 패스워드와 비교하여야 합니다.
 passport.use(new LocalStrategy({
     usernameField: 'email',
@@ -74,14 +62,15 @@ function (req, email, password, done)
         } else {
             console.log(user.email)
             console.log("로그인성공")
-            return done(null, {'user' : user}); // 로그인 성공
+            return done(null, {'email' : user}); // 로그인 성공
         }
     });
 }
 ));
 router.post('/login', passport.authenticate('local', { failureRedirect: '/member/login', failureFlash: true}), // 인증 실패 시 '/login'으로 이동
 async function (req, res) {
-    console.log("qweqweqweqwe");
+    console.log(req.user)
+    console.log("성공했으니 인덱스로 이동");
         res.redirect('/');
     //로그인 성공 시 '/'으로 이동
 });
@@ -90,3 +79,15 @@ async function (req, res) {
 router.get("/login", (req, res) => res.render("login", {message: req.flash('login_message')}));
 
 module.exports = router;
+
+// 로그인에 성공할 시 정보를 세션에 저장하는 코드와 인증 후에 페이지 이동등의 요청이 있을 때마다 호출하는 코드를 추가합니다.
+
+// 로그인에 성공할 시 serializeUser 메서드를 통해서 사용자 정보를 세션에 저장
+passport.serializeUser(function (user, done) {
+    done(null, user);
+});
+
+// 사용자 인증 후 요청이 있을 때마다 호출
+passport.deserializeUser(function (user, done) {
+    done(null, user);
+});

@@ -54,11 +54,21 @@ app.use(passport.session());
 
 //index
 app.get('/', async (req, res) => {
+  var searchQuery = createSearchQuery(req.query);
   // await req.session.displayname
   var sess= req.session
-  var searchQuery = createSearchQuery(req.query);
+  var email = null
+  console.log(sess)
+  if(sess.passport != null){
+    email = sess.passport.user.email
+    console.log(email)
+    const articles = await Article.find(searchQuery).sort({ upload_day: 'desc' })  
+    res.render('articles/index', { email :email , articles: articles })
+  }
+  else {
     const articles = await Article.find(searchQuery).sort({ upload_day: 'desc' })  
     res.render('articles/index', { email : sess.email , articles: articles })
+  }
 })
 
 
