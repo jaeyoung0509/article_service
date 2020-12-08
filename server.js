@@ -19,7 +19,8 @@ const memberRoute = require("./routes/member");
 
 const articleRouter = require('./routes/articles')
 const Article = require('./models/article')
-const User  = require('./models/article')
+const User  = require('./models/article');
+const { session } = require('passport');
 const app = express()
 
 //body-parser를 express에 붙여서 사용하기 위해 코드를 추가
@@ -30,7 +31,7 @@ app.use(Session({
   secret:'sean', //세션 암호화 key
   resave:false,//세션 재저장 여부
   saveUninitialized:true,
-  rolling:true,//로그인 상태에서 페이지 이동 시마다 세션값 변경 여부
+  rolling:false,//로그인 상태에서 페이지 이동 시마다 세션값 변경 여부
   cookie:{maxAge:1000*60*60},//유효시간
   store: store
 }));
@@ -56,20 +57,19 @@ app.use(passport.session());
 app.get('/', async (req, res) => {
   var searchQuery = createSearchQuery(req.query);
   // await req.session.displayname
-  var sess= req.session
-  if(sess.passport != null){
-    console.log(1)
-    email = sess.passport.user.email
-    console.log(email)
+  if(req.session.passport != null){
     const articles = await Article.find(searchQuery).sort({ upload_day: 'desc' })  
-    res.render('articles/index', { email :email , articles: articles })
+    console.log(1)
+    email = await req.session.passport.user.email
+    console.log(email)
+    res.render('articles/index', { email :email, session : session , articles: articles })
   }
   else {
+    const articles = await Article.find(searchQuery).sort({ upload_day: 'desc' })  
     var email = null
     console.log(email)
     console.log(2)
-    const articles = await Article.find(searchQuery).sort({ upload_day: 'desc' })  
-    res.render('articles/index', { email : email , articles: articles })
+    res.render('articles/index', { email : null , articles: articles })
   }
 })
 
