@@ -16,19 +16,19 @@ router.get('/:id', async(req, res) => {
 })
 // 검색 눌렀을 때 이걸로 실행되는 듯
 router.get('/', async (req, res) => {
-  if(req.user.email != null){
+  //passport 검사
+  if(req.session.passport != null){
     console.log('zzzzzzzzzzzzz')
     console.log(req.user.email)
-    //sconsole.log(session)
     var searchQuery = createSearchQuery(req.query);
       const articles = await Article.find(searchQuery).sort({ upload_day: 'desc' }) // 검색한 글자가 포함된 기사들만 articles에 저장
-      res.render('articles/index', { session: req.session , email:req.user.email ,articles: articles })  // 화면 표출
+      res.render('articles/index', { passport: req.session.passport , email:req.user.email ,articles: articles })  // 화면 표출
   }
   else {
     console.log(req)
     var searchQuery = createSearchQuery(req.query);
     const articles = await Article.find(searchQuery).sort({ upload_day: 'desc' }) // 검색한 글자가 포함된 기사들만 articles에 저장
-    res.render('articles/index', {  email : null ,articles: articles })  // 화면 표출
+    res.render('articles/index', {  email : '' ,articles: articles })  // 화면 표출
   }
 })
 // searchQuery <<< 이건 server.js랑 양쪽 둘다 있어야 댈듯 (지우면 실행 안대드라고)

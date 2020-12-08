@@ -62,7 +62,7 @@ app.get('/', async (req, res) => {
     console.log(1)
     email = await req.session.passport.user.email
     console.log(email)
-    res.render('articles/index', { email :email, session : session , articles: articles })
+    res.render('articles/index', { email :email, passport : req.session.passport , articles: articles })
   }
   else {
     const articles = await Article.find(searchQuery).sort({ upload_day: 'desc' })  
