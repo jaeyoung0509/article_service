@@ -72,7 +72,7 @@ def crwallNews():
             summary_kor.append(''.join(eng2kr(summary_temp)))
             # keyword
             keyword_temp = ','.join(keywords(plain_text_temp).split('\n')[:3])
-            keyword.append(keyword_temp.replace('reuters','').replace('news','').replace('provider',''))
+            keyword.append(keyword_temp)
             keyword_kor.append(''.join(eng2kr(keyword_temp)))
             href.append(plain_href)
             title.append(plain_title)
