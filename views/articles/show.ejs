@@ -1,39 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Article</title>
 </head>
-<body>
 
+<body>
   <div class="container">
     <div class="card mt-2" padding : 10 10 10 10>
-    <h1 class="mb-1" style="text-align:center" >  <%= article.title_kor%></h1>
-    <h5 class="mb-1" style="text-align:center " >  <%= article.title%></h5>
-    <div style="margin:0 auto" ></div>
-  <span class='text-primary'  style="text-align:center"> # <%=article.keyword_kor %></span>
-  <span class='text-info'  style="text-align:center">  #<%=article.keyword%></span>
-  <div class="text-muted mb-2">
-    <%= article.summary_kor %>
+      <h1 class="mb-1" style="text-align:center"> <%= article.title_kor%></h1>
+      <h5 class="mb-1" style="text-align:center "> <%= article.title%></h5>
+      <div style="margin:0 auto"></div>
+      <span class='text-primary' style="text-align:center"> # <%=article.keyword_kor %></span>
+      <span class='text-info' style="text-align:center"> #<%=article.keyword%></span>
+      <div class="text-muted mb-2">
+        <%= article.summary_kor %>
+      </div>
+      <div class="text-muted mb-2">
+        <%= article.summary %>
+      </div>
+      <div class="text-muted mb-2" style="">
+        <%= article.upload_day.toLocaleDateString() %>
+      </div>
+    </div>
+    <div class="text-muted mb-2">
+      <%= article.plain_text %>
+    </div>
+    <a href="/" class="btn btn-secondary" style="text-align:center"> All Articles</a>
   </div>
-  <div class="text-muted mb-2">
-    <%= article.summary %>
+
+  <div class="container">
+    <form method="post" action="/articles/<%= article.id%>">
+      <textarea id="comment" name="comment" rows="5" cols="60" placeholder="댓글을 입력하세요." autofocus required wrap="hard"></textarea>
+      <input type="submit" value="입력완료">
+    </form>
   </div>
-  <div class="text-muted mb-2" style="">
-    <%= article.upload_day.toLocaleDateString() %>
-  </div>
-</div>
-  <div class="text-muted mb-2">
-    <%= article.plain_text %>
-  </div>
-  <a href ="/" class="btn btn-secondary" style="text-align:center"  > All Articles</a> 
-</div>
- 
 
 
-</div>
+
+  </div>
 </body>
+
 </html>

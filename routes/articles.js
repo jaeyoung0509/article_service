@@ -7,16 +7,34 @@ const { session } = require('passport');
 //const MemberRouter =  require('member')
 
 
-
+// 기사 자세히보기
 router.get('/:id', async(req, res) => {
   const article = await Article.findById(req.params.id)
+  //댓글
   if(article == null)
    res.redirect('/')
+   
   res.render('articles/show' , {article : article} ) 
 })
+
+// 기사 자세히보기 댓글
+router.post('/:id', async(req, res) => {
+  if(req.session.passport != null){
+    console.log("yesssssssssssssssssss")
+    const article = await Article.findById(req.params.id)
+  }
+  else {
+   // console.log(req.params.id)
+    //console.log("noooooooooooooooooo")
+    console.log(req.body.comment)
+   // console.log(req.body.comment)
+
+  }
+})
+
 // 검색 눌렀을 때 이걸로 실행되는 듯
 router.get('/', async (req, res) => {
-  //passport 검사
+  // passport 검사
   if(req.session.passport != null){
     console.log('zzzzzzzzzzzzz')
     console.log(req.user.email)
