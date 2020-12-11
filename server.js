@@ -25,10 +25,10 @@ const app = express()
 
 //body-parser를 express에 붙여서 사용하기 위해 코드를 추가
 app.use(bodyParser.urlencoded({extended: true}));
-//passport를 require 하고, 로그인에 성공할 시 정보를 세션에 저장하는 코드와 인증 후에 페이지 이동등의 요청이 있을 때마다 호출하는 코드를 추가합니다.
+//passport를 require 하고, 로그인에 성공할 시 정보를 세션에 저장하는 코드와 인증 후에 페이지 이동등의 요청이 있을 때마다 호출하는 코드를 추가
 app.use(flash());
 app.use(Session({
-  secret:'sean', //세션 암호화 key
+  secret:'jaeyoung0509', //세션 암호화 key
   resave:false,//세션 재저장 여부
   saveUninitialized:true,
   rolling:false,//로그인 상태에서 페이지 이동 시마다 세션값 변경 여부

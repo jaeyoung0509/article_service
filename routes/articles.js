@@ -50,7 +50,7 @@ router.post('/:id', async(req, res) => {
       //comment is null
     }
   }else {
-    res.render('/member/login')
+    res.render('member/login')
     //not login
   }
 })

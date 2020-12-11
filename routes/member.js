@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-// user model 그리고 mongoose를 require합니다.
 const User = require("../models/user");
 const mongoose = require("mongoose");
 
@@ -16,8 +15,7 @@ router.get("/login", (req, res) => res.render("member/login", {page: "login"}));
 router.get("/signup", (req, res) => res.render("member/signup", {page: "signup"}));
 
 // 회원가입
-// 먼저, email을 기존 DB에서 비교해 중복되면 저장하지 않고, 알림을 띄운 뒤, 회원가입 페이지로 다시 리다이렉트합니다.
-// email이 중복되지 않으면, 데이터베이스에 저장한 뒤, 값들을 console에 출력합니다.
+// 먼저, email을 기존 DB에서 비교해 중복되면 저장하지 않고, 알림을 띄운 뒤, 회원가입 페이지로 다시 리다이렉트
 // (실수!!!) router.post("/member/signup" => 이렇게 쓰면 멤버안에 멤버 폴더로 감... => cannot POST /member/signup 뜸
 router.post("/signup", (req, res, next) => {
   console.log(req.body);
@@ -47,7 +45,7 @@ router.post("/signup", (req, res, next) => {
       });
 });
 
-// 로그인 로직 코드입니다. 주의할 점은 password를 암호화하여 저장하였으므로, 로그인 코드를 작성할 때도 사용자가 입력한 패스워드를 암호화한 값과 DB에 저장된 패스워드와 비교하여야 합니다.
+// 로그인 로직 코드입니다. 주의할 점은 password를 암호화하여 저장하였으므로, 로그인 코드를 작성할 때도 사용자가 입력한 패스워드를 암호화한 값과 DB에 저장된 패스워드와 비교
 passport.use(new LocalStrategy({
     usernameField: 'email',
     passwordField : 'password',
@@ -86,7 +84,7 @@ router.get("/login", (req, res) => res.render("login", {message: req.flash('logi
 
 module.exports = router;
 
-// 로그인에 성공할 시 정보를 세션에 저장하는 코드와 인증 후에 페이지 이동등의 요청이 있을 때마다 호출하는 코드를 추가합니다.
+// 로그인에 성공할 시 정보를 세션에 저장하는 코드와 인증 후에 페이지 이동등의 요청이 있을 때마다 호출하는 코드를 추가
 
 // 로그인에 성공할 시 serializeUser 메서드를 통해서 사용자 정보를 세션에 저장
 passport.serializeUser(function (user, done) {
