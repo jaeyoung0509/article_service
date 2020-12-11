@@ -1,10 +1,12 @@
+const { ObjectID } = require("mongodb");
+const articles = require("article")
 const mongoose = require("mongoose");
 
 const CommentSchema = new mongoose.Schema({
-    email: { type: String, unique: true, required: true },
-    password: { type: String, required: true },
-    name :{ type: String, required: true },
-    isAdmin: { type: Boolean, default: false }
+    comment : { type: String , required: true },
+    article_id : [{ type: Schema.Types.ObjectId, ref: 'Atricle'}], 
+    user_email : {type : String, required : true}
+
 });
 
 module.exports = mongoose.model("Comment", CommentSchema, 'Comment');

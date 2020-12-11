@@ -1,5 +1,7 @@
+const mongoose = require("mongoose");
 const express = require('express')
 const Article = require('./../models/article')
+const Comment = require('./../models/comment')
 const router = express.Router()
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
@@ -22,13 +24,31 @@ router.post('/:id', async(req, res) => {
   if(req.session.passport != null){
     console.log("yesssssssssssssssssss")
     const article = await Article.findById(req.params.id)
-  }
-  else {
-   // console.log(req.params.id)
-    //console.log("noooooooooooooooooo")
-    console.log(req.body.comment)
-   // console.log(req.body.comment)
+    if(req.body.comment != null){
+      console.log(req.session.passport)
+      const comment = new Comment({
+      _id: new mongoose.Types.ObjectId(),
+      article_id : req.params.id,
+      comment : req.body.comment,
+      user_email : req.session.passport.user.email
+      });
+      comment
+      .save()
+      .then(result => {
+          console.log(result);
+          res.redirect("/articles/show" , {article : article});
+      })
+      .catch(err => {
+          console.log(err);
+      });
+      console.log(comment)
+    }
 
+    else {
+      //comment is null
+    }
+  }else {
+    //not login
   }
 })
 

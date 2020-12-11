@@ -43,7 +43,7 @@ app.set('view engine' , 'ejs')
 
 //세션
 var store = new MongoDBStore({//세션을 저장할 공간
-  uri: 'mongodb://developer:developer@207.148.99.250:27017/article_service',//db url
+  uri: 'mongodb://developer:developer@207.148.99.250:27017/article_service', //db url
   collection: 'Member'//콜렉션 이름
 });
 
