@@ -34,7 +34,6 @@ router.post("/signup", (req, res, next) => {
               user
                   .save()
                   .then(result => {
-                    res.send('<script type="text/javascript">alert("회원가입 완료 되었습니다"); window.location="/member/signup"; </script>');
                       console.log(result);
                       res.redirect("/member/login");
                   })
