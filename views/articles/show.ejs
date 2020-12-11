@@ -32,13 +32,25 @@
       <%= article.plain_text %>
     </div>
     <a href="/" class="btn btn-secondary" style="text-align:center"> All Articles</a>
-  </div>
-  <div class="container">
-    <form method="post" action="/articles/<%= article.id%>">
-      <textarea id="comment" name="comment" rows="5" cols="60" placeholder="댓글을 입력하세요." autofocus required wrap="hard"></textarea>
-      <input type="submit" value="입력완료">
-    </form>
-  </div>
+
+    <% comments.forEach(comment => { %>
+      <div class = "card mt-2" style="margin:0 auto" >
+        <div class ="card-body">
+          <h5 class=>   <%=comment.user_email %>  :<%=comment.comment%> </span>
+          </div>
+          </div>
+          <% }) %>
+          <div class="container"  padding : 3 3 3 3>
+            <form method="post" action="/articles/<%= article.id%>">
+              <textarea id="comment" name="comment" rows="5" cols="100" placeholder="댓글을 입력하세요." autofocus required wrap="hard"></textarea>
+              <input type="submit" value="입력완료" class="btn btn-success" style="text-align:center">
+            </form>
+          </div>
+        
+  </div>  
+
+  
+
 
 
 

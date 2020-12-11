@@ -12,11 +12,13 @@ const { session } = require('passport');
 // 기사 자세히보기
 router.get('/:id', async(req, res) => {
   const article = await Article.findById(req.params.id)
+  const comments = await Comment.find({"article_id" : req.params.id})  
   //댓글
   if(article == null)
    res.redirect('/')
-   
-  res.render('articles/show' , {article : article} ) 
+  else{
+      res.render('articles/show' , {comments: comments ,article : article} ) 
+  } 
 })
 
 // 기사 자세히보기 댓글
@@ -34,9 +36,9 @@ router.post('/:id', async(req, res) => {
       });
       comment
       .save()
-      .then(result => {
-          console.log(result);
-          res.redirect("/articles/show" , {article : article});
+      .then   ( async result => {
+        const comments =   await Comment.find({"article_id" : req.params.id})  
+          res.render('articles/show', { comments: comments ,article : article });
       })
       .catch(err => {
           console.log(err);
@@ -48,6 +50,7 @@ router.post('/:id', async(req, res) => {
       //comment is null
     }
   }else {
+    res.render('/member/login')
     //not login
   }
 })
