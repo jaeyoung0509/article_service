@@ -54,7 +54,9 @@ def crwallNews():
     summary_kor = []
     upload_day = []
     plain_text = []
+    ##최용범 학생
     r = Rake()
+    ##최용범 학생
     href = []
     html = req.text
     soup = BeautifulSoup(html, 'html.parser')

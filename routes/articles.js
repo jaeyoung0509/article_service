@@ -67,12 +67,14 @@ router.get('/', async (req, res) => {
   }
   else {
     console.log(req)
+    //촤용범학생
     var searchQuery = createSearchQuery(req.query);
     const articles = await Article.find(searchQuery).sort({ upload_day: 'desc' }) // 검색한 글자가 포함된 기사들만 articles에 저장
     res.render('articles/index', {  email : '' ,articles: articles })  // 화면 표출
+    //최용범학생
   }
 })
-// searchQuery <<< 이건 server.js랑 양쪽 둘다 있어야 댈듯 (지우면 실행 안대드라고)
+//최용범학생
 function createSearchQuery(queries){ // 4
   var searchQuery = {};
   
@@ -88,5 +90,5 @@ function createSearchQuery(queries){ // 4
   }
   return searchQuery;
 }
-
+//최용범학생
 module.exports = router
